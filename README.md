@@ -31,3 +31,7 @@ To run zero-shot classification on multi-label datasets, use the following comma
 ```bash
 python3 validation.py --weight_path {weight path to load} --save_name {name to save similarities and results} -c configs/offclip.yaml
 ```
+
+
+
+
