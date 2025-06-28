@@ -1,4 +1,5 @@
 # OFF-CLIP: Improving Normal Detection Confidence in Radiology CLIP with Simple Off-Diagonal Term Auto-Adjustment
+Official codes for **OFF-CLIP: Improving Normal Detection Confidence in Radiology CLIP with Simple Off-Diagonal Term Auto-Adjustment** on MICCAI 2025. (Early Accepted, top 9%)
 
 ## About
 OFF-CLIP (**OFF**-Diagonal Term Auto-Adjustment **C**ontrastive **L**anguage-**I**mage **P**re-Training) is a novel contrastive learning framework that refines medical image–text alignment. OFF-CLIP introduces an off-diagonal term loss to enhance normal clustering and a text filtering strategy to remove normal statements from abnormal reports, reducing both False positives and false negatives. These modifications improve normal detection and anomaly localization, outperforming the CARZero baseline in zero-shot classification.
