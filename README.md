@@ -64,7 +64,7 @@ This classifier is used to exclude normal sentences from abnormal reports before
 
 ## ✅ Validation
 
-### 🧠 Pretrained OFF-CLIP Checkpoint
+### Pretrained OFF-CLIP Checkpoint
 
 To evaluate performance, download the best-performing OFF-CLIP checkpoint:  
 👉 [OFF-CLIP Checkpoint](https://drive.google.com/file/d/1JmfB2jbl-58aBrxRwaMrGjhPNUUjKNC-/view?usp=drive_link)
@@ -76,7 +76,7 @@ This checkpoint includes:
 
 ---
 
-### 🧪 Run Zero-Shot Classification
+### Run Zero-Shot Classification
 
 To run zero-shot classification on multi-label datasets:
 
