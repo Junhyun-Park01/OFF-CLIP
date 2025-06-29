@@ -89,4 +89,3 @@ python3 validation.py \
 
 Results will include similarity scores and classification metrics across all test datasets.
 
-```
