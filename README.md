@@ -1,38 +1,92 @@
 # OFF-CLIP: Improving Normal Detection Confidence in Radiology CLIP with Simple Off-Diagonal Term Auto-Adjustment
-Official codes for **OFF-CLIP: Improving Normal Detection Confidence in Radiology CLIP with Simple Off-Diagonal Term Auto-Adjustment** on MICCAI 2025. (Early Accepted, top 9%)
+
+Official code for **OFF-CLIP: Improving Normal Detection Confidence in Radiology CLIP with Simple Off-Diagonal Term Auto-Adjustment**, accepted at **MICCAI 2025 (Early Accept, top 9%)**.
+
+![OFF-CLIP Overview](offclip_figure.png)
+
+---
 
 ## About
-OFF-CLIP (**OFF**-Diagonal Term Auto-Adjustment **C**ontrastive **L**anguage-**I**mage **P**re-Training) is a novel contrastive learning framework that refines medical image–text alignment. OFF-CLIP introduces an off-diagonal term loss to enhance normal clustering and a text filtering strategy to remove normal statements from abnormal reports, reducing both False positives and false negatives. These modifications improve normal detection and anomaly localization, outperforming the CARZero baseline in zero-shot classification.
 
-![alt text](offclip_figure.png)
+**OFF-CLIP** (**OFF**-Diagonal Term Auto-Adjustment for **C**ontrastive **L**anguage-**I**mage **P**re-Training) is a novel contrastive learning framework designed to improve medical image–text alignment.
 
-## Datasets
-OFF-CLIP is trained using the MIMIC-CXR dataset, which contains 377,110 chest radiographs paired with associated reports. Only frontal images are retained. If there are multiple frontal images, one is randomly selected. For reports with several prompted sentences, one is chosen per epoch. The training is restricted to images from the p10-16 folders within the p10-19 range.
+Key contributions:
+- **Off-diagonal term loss**: Encourages tight clustering of normal samples in the embedding space.
+- **Text filtering strategy**: Removes normal sentences from abnormal reports to reduce both **false positives** and **false negatives**.
+- Outperforms the **CARZero** baseline in zero-shot classification and anomaly localization.
 
-For evaluation and ablation studies, the following datasets are used: VinDr-CXR (18,000 X-rays, 28 disease annotations with bounding boxes; 3,000 evaluation scans, 68.3% normal), Open-I (7,470 X-rays, 18 disease annotations), CheXpert (224,316 X-rays, 14 disease annotations; evaluated on 500 cases), and PadChest (160,868 X-rays, 192 disease annotations; evaluated on 39,053 manually labeled cases).
+---
 
-You can download each dataset using the following links: [MIMIC-CXR](https://physionet.org/content/mimic-cxr/2.0.0/), [VinDr-CXR](https://physionet.org/content/vindr-cxr/1.0.0/), [CheXpert](https://stanfordaimi.azurewebsites.net/datasets/23c56a0d-15de-405b-87c8-99c30138950c), [Open-I](https://openi.nlm.nih.gov/faq), [PadChest](http://bimcv.cipf.es/bimcv-projects/padchest/).
+## 📊 Datasets
 
-## How to start
+OFF-CLIP is trained and evaluated using the following datasets:
+
+### 🔹 Training Dataset
+- **MIMIC-CXR** ([Link](https://physionet.org/content/mimic-cxr/2.0.0/))  
+  - 377,110 frontal-view chest radiographs with reports  
+  - One frontal image is randomly selected per study  
+  - One prompted sentence selected per epoch  
+  - Training restricted to images from folders `p10` to `p16` (within `p10`–`p19`)
+
+### 🔹 Evaluation Datasets
+- **VinDr-CXR** ([Link](https://physionet.org/content/vindr-cxr/1.0.0/))  
+  - 18,000 images (3,000 for evaluation, 68.3% normal), 28 bounding-box disease annotations  
+- **Open-I** ([Link](https://openi.nlm.nih.gov/faq))  
+  - 7,470 images, 18 disease annotations  
+- **CheXpert** ([Link](https://stanfordaimi.azurewebsites.net/datasets/23c56a0d-15de-405b-87c8-99c30138950c))  
+  - 224,316 images, 14 disease labels (evaluation on 500 cases)  
+- **PadChest** ([Link](http://bimcv.cipf.es/bimcv-projects/padchest/))  
+  - 160,868 images, 192 disease labels (evaluation on 39,053 manually labeled cases)
+
+---
+
+## ⚙️ Setup
+
+Install dependencies:
+
 ```bash
-pip install -r requirments.txt
+pip install -r requirements.txt
 ```
 
-## Train
-The training loss code will be publicly released after the acceptance notification. 
+---
 
-For the text filtering, we utilized the trained abnomaly sentence-level classificatio model, and you can downloaded the model on this link: [Anomaly-Classification](https://drive.google.com/file/d/1QuRSJBnaj5Plj_XAxRE8XsyjESLyS9wb/view?usp=drive_link).
+## 🚀 Training
 
-## Validation
-### Weight checkpoints  
-To test the validation, download the [OFF-CLIP checkpoint](https://drive.google.com/file/d/1JmfB2jbl-58aBrxRwaMrGjhPNUUjKNC-/view?usp=drive_link). This checkpoint provides the best performance and includes all proposed modifications (text filtering, off-diagonal term loss, and abnormal InfoNCE loss).
+🔒 **Training loss code will be released after the final acceptance notification.**
 
-### Zero-shot classification for multi-label datasets
-To run zero-shot classification on multi-label datasets, use the following command:
+For sentence-level anomaly filtering, we use a pretrained sentence-level anomaly classifier:
+
+👉 [Download the model](https://drive.google.com/file/d/1QuRSJBnaj5Plj_XAxRE8XsyjESLyS9wb/view?usp=drive_link)
+
+This classifier is used to exclude normal sentences from abnormal reports before contrastive learning.
+
+---
+
+## ✅ Validation
+
+### 🧠 Pretrained OFF-CLIP Checkpoint
+
+To evaluate performance, download the best-performing OFF-CLIP checkpoint:  
+👉 [OFF-CLIP Checkpoint](https://drive.google.com/file/d/1JmfB2jbl-58aBrxRwaMrGjhPNUUjKNC-/view?usp=drive_link)
+
+This checkpoint includes:
+- Off-diagonal term loss  
+- Abnormal InfoNCE loss  
+- Sentence-level filtering of normal text
+
+---
+
+### 🧪 Run Zero-Shot Classification
+
+To run zero-shot classification on multi-label datasets:
+
 ```bash
-python3 validation.py --weight_path {weight path to load} --save_name {name to save similarities and results} -c configs/offclip.yaml
+python3 validation.py \
+  --weight_path {path_to_checkpoint} \
+  --save_name {output_name} \
+  -c configs/offclip.yaml
 ```
 
+Results will include similarity scores and classification metrics across all test datasets.
 
-
-
+```
