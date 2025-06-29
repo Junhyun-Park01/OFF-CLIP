@@ -17,7 +17,7 @@ Key contributions:
 
 ---
 
-## 📊 Datasets
+## Datasets
 
 OFF-CLIP is trained and evaluated using the following datasets:
 
@@ -40,7 +40,7 @@ OFF-CLIP is trained and evaluated using the following datasets:
 
 ---
 
-## ⚙️ Setup
+## Setup
 
 Install dependencies:
 
@@ -50,7 +50,7 @@ pip install -r requirements.txt
 
 ---
 
-## 🚀 Training
+## Training
 
 🔒 **Training loss code will be released after the final acceptance notification.**
 
@@ -62,7 +62,7 @@ This classifier is used to exclude normal sentences from abnormal reports before
 
 ---
 
-## ✅ Validation
+## Validation
 
 ### Pretrained OFF-CLIP Checkpoint
 
